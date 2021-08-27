@@ -1,7 +1,10 @@
 # React Hooks
 ### `useEffect()`
+The Effect Hook lets you perform side effects in function components
+
+⚠︎ If you’re familiar with React class lifecycle methods, you can think of useEffect Hook as componentDidMount, componentDidUpdate, and componentWillUnmount combined.
 <br/>
-<details><summary> 📝 <b>Code Example</b></summary>
+<details><summary> ✏︎ <b>Code Example</b></summary>
 
 ```javascript
 import React, { useState, useEffect } from 'react';
