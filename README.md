@@ -1,8 +1,47 @@
 # React Hooks
-### `useEffect()`
-The Effect Hook lets you perform side effects in function components
 
-⚠︎ If you’re familiar with React class lifecycle methods, you can think of useEffect Hook as componentDidMount, componentDidUpdate, and componentWillUnmount combined.
+### `useState`
+❕ The useState Hook lets us keep local state in a function component.
+
+<br/>
+<details><summary> ✏︎ <b>Code Example</b></summary>
+
+```javascript
+import React, { useState } from 'react';
+
+const Clicker = () => {
+  const [clicks, setClicks] = useState(0);
+  const [showClicks, setShowClicks] = useState(false);
+
+  const onClick = () => {
+    setClicks(clicks + 1);
+  };
+
+  const onToggleShowClicks = () => {
+    setShowClicks((prevValue) => !prevValue);
+  };
+
+  const clicksText = showClicks ? ` [${clicks}]` : '';
+
+  return (
+    <div>
+      <button onClick={onClick}>Click me! {clicksText}</button>
+      <button onClick={onToggleShowClicks}>Toggle show clicks</button>
+    </div>
+  );
+};
+
+export default Clicker;
+```
+```javascript
+```
+</details>
+<br/><br/>
+
+### `useEffect`
+❕ The Effect Hook lets you perform side effects in function components.
+
+> If you’re familiar with React class lifecycle methods, you can think of useEffect Hook as componentDidMount, componentDidUpdate, and componentWillUnmount combined.
 <br/>
 <details><summary> ✏︎ <b>Code Example</b></summary>
 
@@ -43,9 +82,6 @@ const App = () => {
 };
 
 export default App;
-
 ```
-
 </details>
-
 <br/><br/>
