@@ -36,7 +36,7 @@ export default Clicker;
 ```javascript
 ```
 </details>
-<br/><br/>
+<br/>
 
 ### `useEffect`
 ❕ The Effect Hook lets you perform side effects in function components.
@@ -84,4 +84,4 @@ const App = () => {
 export default App;
 ```
 </details>
-<br/><br/>
+<br/>
