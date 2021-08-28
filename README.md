@@ -33,7 +33,68 @@ const Clicker = () => {
 
 export default Clicker;
 ```
+### Form
 ```javascript
+import React, { useState } from 'react';
+
+const Field = (props) => {
+  const { name, label, value, type = 'text', onChange } = props;
+  return (
+    <div>
+      <label htmlFor={name}>{label}</label>
+      <input
+        name={name}
+        type={type}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+      />
+    </div>
+  );
+};
+
+const Form = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [age, setAge] = useState(0);
+
+  const clearForm = () => {
+    setFirstName('');
+    setLastName('');
+    setAge(0);
+  };
+
+  return (
+    <div>
+      <form>
+        <Field
+          name="firstName"
+          label="First Name"
+          value={firstName}
+          onChange={(newValue) => setFirstName(newValue)}
+        />
+        <Field
+          name="lastName"
+          label="Last Name"
+          value={lastName}
+          onChange={(newValue) => setLastName(newValue)}
+        />
+        <Field
+          name="age"
+          label="Age"
+          type="number"
+          value={age}
+          onChange={(newValue) => setAge(newValue ? parseInt(newValue) : 0)}
+        />
+      </form>
+      <button onClick={clearForm}>Clear</button>
+      <div>First Name: {firstName}</div>
+      <div>Last Name: {lastName}</div>
+      <div>Age: {age}</div>
+    </div>
+  );
+};
+
+export default Form;
 ```
 </details>
 <br/>
