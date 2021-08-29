@@ -35,6 +35,8 @@ export default Clicker;
 ```
 ### Form
 ```javascript
+
+
 import React, { useState } from 'react';
 
 const Field = (props) => {
@@ -95,6 +97,88 @@ const Form = () => {
 };
 
 export default Form;
+```
+### Lazy initialization
+```javascript
+import React, { useState } from 'react';
+
+const heavyFunc = (maxNumber, maxPow) => {
+  const data = [];
+  for (let i = 1; i <= maxNumber; i++) {
+    const record = {};
+    for (let pow = 1; pow <= maxPow; pow++) {
+      record[pow] = Math.pow(i, pow);
+    }
+    data.push(record);
+  }
+
+  return data;
+};
+
+const Row = ({ record }) => {
+  return (
+    <tr>
+      {Object.values(record)
+        .sort((a, b) => a - b)
+        .map((value, index) => (
+          <td key={Object.values(record).length - index}>{value}</td>
+        ))}
+    </tr>
+  );
+};
+
+const HeaderRow = ({ maxPow }) => {
+  const cells = [];
+  for (let pow = 1; pow <= maxPow; pow++) {
+    cells.push(
+      <th key={maxPow - pow} style={{ minWidth: 100 }}>
+        ^{pow}
+      </th>
+    );
+  }
+
+  return <tr>{cells}</tr>;
+};
+
+const MAX_NUMBER = 30;
+const MAX_POW = 5;
+
+export const Table = () => {
+  const [data, setData] = useState(() => {
+    console.log('useState initialization');
+
+    return heavyFunc(MAX_NUMBER, MAX_POW);
+  });
+
+  const [, setTrigger] = useState();
+  const rerender = () => setTrigger({})
+
+  const removeFirst = () => {
+    setData((prevData) => {
+      const [, ...rest] = prevData;
+      return rest;
+    });
+  };
+
+  console.log('Table has been rendered');
+
+  return (
+    <div>
+      <button onClick={removeFirst}>Remove First Row</button>
+      <button onClick={rerender}>Rerender</button>
+      <table>
+        <thead>
+          <HeaderRow maxPow={MAX_POW} />
+        </thead>
+        <tbody>
+          {data.map((record, index) => (
+            <Row key={data.length - index} record={record} />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 ```
 </details>
 <br/>
