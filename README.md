@@ -33,6 +33,88 @@ const Clicker = () => {
 
 export default Clicker;
 ```
+### Form, Array
+```javascript
+import React, { useState } from 'react';
+
+const App = () => {
+  const initialState = [
+    { id: 1, name: 'Michael', age: 21, status: false },
+    { id: 2, name: 'James', age: 27, status: false },
+    { id: 3, name: 'John', age: 24, status: false },
+    { id: 4, name: 'Robert', age: 29, status: false },
+  ];
+
+  const [users, setUsers] = useState(initialState);
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+
+  const list = users.map(({ id, name, age, status }) => (
+    <li key={id}>
+      <span>
+        Name: {name}, age: {age}
+      </span>
+      <button onClick={() => onDelete(id)}>Delete</button>
+      <button
+        style={{ backgroundColor: status ? 'green' : 'red' }}
+        onClick={() => onChangeStatus(id)}
+      >
+        Status
+      </button>
+    </li>
+  ));
+
+  const onDelete = (id) => {
+    const newUsers = users.filter((user) => user.id !== id);
+    setUsers(newUsers);
+  };
+
+  const onReset = () => {
+    setUsers(initialState);
+  };
+
+  const onChangeStatus = (id) => {
+    const newUsers = [...users];
+    const index = newUsers.findIndex((user) => user.id === id);
+    newUsers[index].status = !newUsers[index].status;
+
+    setUsers(newUsers);
+  };
+
+  const addUser = (event) => {
+    event.preventDefault();
+    setUsers([...users, { id: users.length + 2, name, age, status: false }]);
+    setName('');
+    setAge('');
+  };
+
+  return (
+    <div>
+      <form>
+        <label htmlFor="name">Name</label>
+        <input
+          onChange={(event) => setName(event.target.value)}
+          type="text"
+          name="name"
+          value={name}
+        />
+        <label htmlFor="age">Age</label>
+        <input
+          onChange={(event) => setAge(event.target.value)}
+          type="text"
+          name="age"
+          value={age}
+        />
+        <button onClick={addUser}>Send</button>
+      </form>
+      <ul>{list}</ul>
+      <button onClick={onReset}>Reset</button>
+    </div>
+  );
+};
+
+export default App;
+```
 ### Form
 ```javascript
 
