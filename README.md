@@ -362,6 +362,157 @@ export default App;
 </details>
 <br/>
 
+### `useLayoutEffect`
+<br/>
+<details><summary> ✏︎ <b>Code Example</b></summary>
+
+```javascript
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+
+const useCharacterPosition = (step) => {
+  const [top, setTop] = useState(0);
+  const [left, setLeft] = useState(0);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      // eslint-disable-next-line default-case
+      switch (event.key) {
+        case 'ArrowLeft':
+          setLeft((prev) => prev - step);
+          break;
+        case 'ArrowRight':
+          setLeft((prev) => prev + step);
+          break;
+        case 'ArrowUp':
+          setTop((prev) => prev - step);
+          break;
+        case 'ArrowDown':
+          setTop((prev) => prev + step);
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [step]);
+
+  return [top, left];
+};
+
+const initialStyle = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: 50,
+  height: 50,
+  backgroundColor: 'red',
+};
+
+export const Example = () => {
+  const [top, left] = useCharacterPosition(10);
+  const [style, setStyle] = useState(initialStyle);
+
+  useLayoutEffect(() => {
+    setStyle((prev) => {
+      return {
+        ...prev,
+        top,
+        left,
+      };
+    });
+  }, [top, left]);
+
+  return (
+    <div>
+      <h1>
+        [top: {top}. left: {left}]
+      </h1>
+      <div style={style} />
+    </div>
+  );
+};
+```
+</details>
+<br/>
+
+
+### `useMemo`
+<br/>
+<details><summary> ✏︎ <b>Code Example</b></summary>
+
+```javascript
+import React, { useState, useEffect, useMemo } from 'react';
+
+const useCharacterPosition = (step) => {
+  const [top, setTop] = useState(0);
+  const [left, setLeft] = useState(0);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      // eslint-disable-next-line default-case
+      switch (event.key) {
+        case 'ArrowLeft':
+          setLeft((prev) => prev - step);
+          break;
+        case 'ArrowRight':
+          setLeft((prev) => prev + step);
+          break;
+        case 'ArrowUp':
+          setTop((prev) => prev - step);
+          break;
+        case 'ArrowDown':
+          setTop((prev) => prev + step);
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [step]);
+
+  return [top, left];
+};
+
+const initialStyle = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: 50,
+  height: 50,
+  backgroundColor: 'red',
+};
+
+export const Example = () => {
+  const [top, left] = useCharacterPosition(10);
+
+  const style = useMemo(() => {
+    return {
+      ...initialStyle,
+      top,
+      left
+    }
+  }, [top, left])
+  
+
+  return (
+    <div>
+      <h1>
+        [top: {top}. left: {left}]
+      </h1>
+      <div style={style} />
+    </div>
+  );
+};
+```
+</details>
+<br/>
+
 ### `custom Hooks`
 <br/>
 <details><summary> ✏︎ <b>Code Example</b></summary>
