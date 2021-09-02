@@ -4,7 +4,7 @@
 ❕ The useState Hook lets us keep local state in a function component.
 
 <br/>
-<details><summary> ✏︎ <b>Code Example</b></summary>
+<details><summary><b>Code Example</b></summary>
 
 ```javascript
 import React, { useState } from 'react';
@@ -319,7 +319,7 @@ export default Calculator;
 
 > If you’re familiar with React class lifecycle methods, you can think of useEffect Hook as componentDidMount, componentDidUpdate, and componentWillUnmount combined.
 <br/>
-<details><summary> ✏︎ <b>Code Example</b></summary>
+<details><summary><b>Code Example</b></summary>
 
 ```javascript
 import React, { useState, useEffect } from 'react';
@@ -364,7 +364,7 @@ export default App;
 
 ### `useLayoutEffect`
 <br/>
-<details><summary> ✏︎ <b>Code Example</b></summary>
+<details><summary><b>Code Example</b></summary>
 
 ```javascript
 import React, { useState, useEffect, useLayoutEffect } from 'react';
@@ -441,7 +441,7 @@ export const Example = () => {
 
 ### `useMemo`
 <br/>
-<details><summary> ✏︎ <b>Code Example</b></summary>
+<details><summary><b>Code Example</b></summary>
 
 ```javascript
 import React, { useState, useEffect, useMemo } from 'react';
@@ -515,7 +515,7 @@ export const Example = () => {
 
 ### `custom Hooks`
 <br/>
-<details><summary> ✏︎ <b>Code Example</b></summary>
+<details><summary><b>Code Example</b></summary>
 
 ```javascript
 import React, { useState } from 'react';
