@@ -513,7 +513,106 @@ export const Example = () => {
 </details>
 <br/>
 
-### `custom Hooks`
+### `useRef`
+<br/>
+<details><summary><b>Code Example</b></summary>
+
+```javascript
+import React, { useState, useRef } from 'react';
+
+export const Example = () => {
+  const refContainer = useRef();
+  const toggledRef = useRef(false);
+  const [toggledState, setToggledState] = useState(false);
+
+  const focusInput = () => {
+    refContainer.current?.focus();
+  };
+
+  const onChange = (event) => {
+    const text = event.target.value;
+    if (text === 'blur') refContainer.current?.blur();
+  };
+
+  const changeRef = () => {
+    toggledRef.current = !toggledRef.current;
+    console.log('toggledRef.current:', toggledRef.current);
+  };
+
+  const changeState = () => {
+    setToggledState((prev) => !prev);
+  };
+
+  console.log('render - toggledState:', toggledState)
+  console.log('render - toggledRef.current:', toggledRef.current)
+
+  return (
+    <div>
+      <input onChange={onChange} ref={refContainer} type="text" />
+      <p>
+        <button onClick={focusInput}>FOCUS</button>
+      </p>
+      <p>
+        <button onClick={changeRef}>TOGGLE REF</button>
+        <button onClick={changeState}>TOGGLE STATE</button>
+      </p>
+    </div>
+  );
+};
+
+```
+### useEffect, useCallback, useState, useRef, Own Hook
+```javascript
+import React, { useEffect, useCallback, useState, useRef } from 'react';
+
+const useCounter = (initialValue = 0, delta = 1) => {
+  const [count, setCount] = useState(initialValue);
+
+  const increment = () => {
+    setCount((prevValue) => prevValue + delta);
+  };
+
+  const decrement = () => {
+    setCount((prevValue) => prevValue - delta);
+  };
+
+  return [count, increment, decrement];
+};
+
+const useUpdateEffect = (callback) => {
+  const firstRender = useRef(true);
+
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+    } else {
+      callback();
+    }
+  }, [callback]);
+};
+
+export const Example = () => {
+  const [value, increment] = useCounter();
+
+  useEffect(() => {
+    console.log('mounted');
+  }, []);
+
+  const callback = useCallback(() => {
+    console.log('   value updated:', value);
+  }, [value]);
+
+  useUpdateEffect(callback);
+
+  console.log('render, value:', value);
+
+  return <button onClick={increment}>RERENDER</button>;
+};
+```
+</details>
+<br/>
+
+### `Own Hooks`
 <br/>
 <details><summary><b>Code Example</b></summary>
 
